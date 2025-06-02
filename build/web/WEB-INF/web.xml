@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    <servlet>
+        <servlet-name>NutritionSummary</servlet-name>
+        <servlet-class>NutritionSummary</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NutritionServlet</servlet-name>
+        <servlet-class>NutritionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RecipeSearchServlet</servlet-name>
+        <servlet-class>RecipeSearchServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NutritionSummary</servlet-name>
+        <url-pattern>/NutritionSummary</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NutritionServlet</servlet-name>
+        <url-pattern>/NutritionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RecipeSearchServlet</servlet-name>
+        <url-pattern>/RecipeSearchServlet</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
