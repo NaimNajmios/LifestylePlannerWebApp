@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,32 +22,39 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class RecipeSearchServlet extends HttpServlet {
-
-    private static final String API_KEY = "bd70e1fb99af4da598e95861e888c53d";
+    private static final Logger LOGGER = Logger.getLogger(RecipeSearchServlet.class.getName());
+    private static final String API_KEY = "fba612d6539347c194d796c076183c15";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        LOGGER.info("Processing GET request for recipe search");
+        
         String query = request.getParameter("recipe");
         String diet = request.getParameter("diet");
+        LOGGER.info("Search parameters - Query: " + query + ", Diet: " + diet);
 
         if (query == null || query.trim().isEmpty()) {
             query = "chicken";
+            LOGGER.info("Empty query, using default: chicken");
         }
 
         if (diet == null) {
             diet = "";
+            LOGGER.info("No diet specified");
         }
 
         List<Map<String, String>> recipes = fetchRecipes(query, diet);
+        LOGGER.info("Found " + recipes.size() + " recipes for initial search");
 
         if (recipes.isEmpty() && !diet.isEmpty()) {
+            LOGGER.info("No exact matches found, trying diet-only search");
             request.setAttribute("info", "No exact matches found. Showing recommended recipes for your diet.");
             recipes = fetchRecipes("", diet);
         }
 
         if (recipes.isEmpty()) {
+            LOGGER.info("No matches found, showing healthy options");
             request.setAttribute("info", "No matching recipes found. Showing some healthy options instead.");
             recipes = fetchRecipes("healthy", "");
         }
@@ -63,6 +72,8 @@ public class RecipeSearchServlet extends HttpServlet {
             String apiUrl = "https://api.spoonacular.com/recipes/complexSearch?query=" + encodedQuery
                     + (diet.isEmpty() ? "" : "&diet=" + encodedDiet)
                     + "&number=10&addRecipeInformation=true&apiKey=" + API_KEY;
+            
+            LOGGER.info("Making API request to: " + apiUrl);
 
             URL url = new URL(apiUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -78,6 +89,7 @@ public class RecipeSearchServlet extends HttpServlet {
 
             JSONObject obj = new JSONObject(json.toString());
             JSONArray results = obj.getJSONArray("results");
+            LOGGER.info("Received " + results.length() + " results from API");
 
             for (int i = 0; i < results.length(); i++) {
                 JSONObject meal = results.getJSONObject(i);
@@ -91,7 +103,7 @@ public class RecipeSearchServlet extends HttpServlet {
             }
 
         } catch (IOException | JSONException e) {
-            // Optional: log the error
+            LOGGER.log(Level.SEVERE, "Error fetching recipes", e);
         }
         return recipes;
     }
@@ -99,6 +111,7 @@ public class RecipeSearchServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        LOGGER.info("Processing POST request");
         doGet(request, response);
     }
 

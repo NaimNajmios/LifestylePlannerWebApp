@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="java.util.logging.Logger" %>
 <jsp:include page="header.jsp" />
+
+<%
+    Logger logger = Logger.getLogger("recipes.jsp");
+    logger.info("Loading recipes page");
+%>
 
 <!-- Add CSS link -->
 <link rel="stylesheet" href="css/recipes.css">
@@ -52,6 +58,7 @@
             <%
                 String info = (String) request.getAttribute("info");
                 if (info != null) {
+                    logger.info("Displaying info message: " + info);
             %>
             <div class="col-lg-12">
                 <div class="alert alert-info">
@@ -63,7 +70,9 @@
             <%
                 List<Map<String, String>> recipes = (List<Map<String, String>>) request.getAttribute("recipes");
                 if (recipes != null && !recipes.isEmpty()) {
+                    logger.info("Displaying " + recipes.size() + " recipes");
                     for (Map<String, String> recipe : recipes) {
+                        logger.fine("Rendering recipe: " + recipe.get("name"));
             %>
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="single-classes-item">
@@ -120,7 +129,8 @@
                 </div>
             </div>
             <% }
-            } else if (recipes == null) { // Show featured recipes when no search is performed
+            } else if (recipes == null) { 
+                logger.info("No recipes found, showing featured recipes section");
             %>
             </div>
             <% } %>
