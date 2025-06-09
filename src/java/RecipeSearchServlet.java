@@ -23,7 +23,7 @@ import org.json.JSONObject;
 
 public class RecipeSearchServlet extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(RecipeSearchServlet.class.getName());
-    private static final String API_KEY = "fba612d6539347c194d796c076183c15";
+    private static final String API_KEY = "bd70e1fb99af4da598e95861e888c53d";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

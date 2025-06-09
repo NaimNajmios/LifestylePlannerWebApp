@@ -255,4 +255,34 @@
 </section>
 <!-- Main Content Section End -->
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Find the summary table body
+    var table = document.getElementById("summaryBody");
+    if (!table) return;
+
+    let totalCalories = 0, totalProtein = 0, totalCarbs = 0, totalFat = 0;
+
+    // Loop through each row in the table
+    for (let row of table.rows) {
+        // Adjust the cell indices if your table structure changes
+        let cal = parseFloat(row.querySelector('.calories')?.textContent.replace(/[^\d.]/g, '') || 0);
+        let protein = parseFloat(row.querySelector('.protein')?.textContent.replace(/[^\d.]/g, '') || 0);
+        let carbs = parseFloat(row.querySelector('.carbs')?.textContent.replace(/[^\d.]/g, '') || 0);
+        let fat = parseFloat(row.querySelector('.fat')?.textContent.replace(/[^\d.]/g, '') || 0);
+
+        totalCalories += cal;
+        totalProtein += protein;
+        totalCarbs += carbs;
+        totalFat += fat;
+    }
+
+    // Update the totals in the DOM
+    document.getElementById("totalCalories").textContent = totalCalories.toFixed(1);
+    document.getElementById("totalProtein").textContent = totalProtein.toFixed(1);
+    document.getElementById("totalCarbs").textContent = totalCarbs.toFixed(1);
+    document.getElementById("totalFat").textContent = totalFat.toFixed(1);
+});
+</script>
+
 <jsp:include page="footer.jsp" />
