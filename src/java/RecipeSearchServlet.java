@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -22,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class RecipeSearchServlet extends HttpServlet {
+
     private static final Logger LOGGER = Logger.getLogger(RecipeSearchServlet.class.getName());
     private static final String API_KEY = "bd70e1fb99af4da598e95861e888c53d";
 
@@ -29,7 +31,7 @@ public class RecipeSearchServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         LOGGER.info("Processing GET request for recipe search");
-        
+
         String query = request.getParameter("recipe");
         String diet = request.getParameter("diet");
         LOGGER.info("Search parameters - Query: " + query + ", Diet: " + diet);
@@ -72,7 +74,7 @@ public class RecipeSearchServlet extends HttpServlet {
             String apiUrl = "https://api.spoonacular.com/recipes/complexSearch?query=" + encodedQuery
                     + (diet.isEmpty() ? "" : "&diet=" + encodedDiet)
                     + "&number=10&addRecipeInformation=true&apiKey=" + API_KEY;
-            
+
             LOGGER.info("Making API request to: " + apiUrl);
 
             URL url = new URL(apiUrl);
@@ -100,6 +102,9 @@ public class RecipeSearchServlet extends HttpServlet {
                         ? meal.getString("summary").replaceAll("<.*?>", "")
                         : "No instructions provided.");
                 recipe.put("id", String.valueOf(meal.getInt("id")));
+                recipe.put("sourceUrl", meal.has("sourceUrl")
+                        ? meal.getString("sourceUrl")
+                        : "");
                 recipes.add(recipe);
             }
 

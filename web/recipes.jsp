@@ -65,7 +65,7 @@
             %>
             <div class="col-lg-12">
                 <div class="alert alert-info">
-                    <i class="fa-solid fa-circle-info"></i> <%= info %>
+                    <i class="fa-solid fa-circle-info"></i> <%= info%>
                 </div>
             </div>
             <% } %>
@@ -79,52 +79,57 @@
             %>
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="single-classes-item">
-                    <img src="<%= recipe.get("image") %>" alt="<%= recipe.get("name") %>" class="article-image">
+                    <img src="<%= recipe.get("image")%>" alt="<%= recipe.get("name")%>" class="article-image">
                     <div class="classes-text">
                         <div class="recipe-meta">
                             <span><i class="fa-regular fa-clock"></i> Recipe</span>
-                            <span><i class="fa-solid fa-utensils"></i> <%= recipe.get("diet") != null ? recipe.get("diet") : "All Diets" %></span>
+                            <span><i class="fa-solid fa-utensils"></i> <%= recipe.get("diet") != null ? recipe.get("diet") : "All Diets"%></span>
                         </div>
-                        <h4><i class="fa-solid fa-bowl-food"></i> <%= recipe.get("name") %></h4>
-                        <p><%= recipe.get("instructions").length() > 150 ? recipe.get("instructions").substring(0, 150) + "..." : recipe.get("instructions") %></p>
+                        <h4><i class="fa-solid fa-bowl-food"></i> <%= recipe.get("name")%></h4>
+                        <p><%= recipe.get("instructions").length() > 150 ? recipe.get("instructions").substring(0, 150) + "..." : recipe.get("instructions")%></p>
                         <div class="recipe-tags">
-                            <% if (recipe.get("diet") != null && !recipe.get("diet").isEmpty()) { %>
-                            <span class="tag"><%= recipe.get("diet") %></span>
-                            <% } %>
+                            <% if (recipe.get("diet") != null && !recipe.get("diet").isEmpty()) {%>
+                            <span class="tag"><%= recipe.get("diet")%></span>
+                            <% }%>
                         </div>
-                        <a href="#" class="primary-btn" data-bs-toggle="modal" data-bs-target="#recipeModal<%= recipe.get("name").hashCode() %>">View Recipe</a>
+                        <a href="#" class="primary-btn" data-bs-toggle="modal" data-bs-target="#recipeModal<%= recipe.get("name").hashCode()%>">Information</a>
                     </div>
                 </div>
             </div>
 
             <!-- Recipe Modal -->
-            <div class="modal fade" id="recipeModal<%= recipe.get("name").hashCode() %>" tabindex="-1" aria-hidden="true">
+            <div class="modal fade" id="recipeModal<%= recipe.get("name").hashCode()%>" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title"><i class="fa-solid fa-bowl-food"></i> <%= recipe.get("name") %></h5>
+                            <h5 class="modal-title"><i class="fa-solid fa-bowl-food"></i> <%= recipe.get("name")%></h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="recipe-details">
                                 <div class="recipe-header">
-                                    <img src="<%= recipe.get("image") %>" alt="<%= recipe.get("name") %>" class="recipe-image">
+                                    <img src="<%= recipe.get("image")%>" alt="<%= recipe.get("name")%>" class="recipe-image">
                                     <div class="recipe-info">
                                         <div class="recipe-meta">
                                             <span><i class="fa-regular fa-clock"></i> Recipe</span>
-                                            <span><i class="fa-solid fa-utensils"></i> <%= recipe.get("diet") != null ? recipe.get("diet") : "All Diets" %></span>
+                                            <span><i class="fa-solid fa-utensils"></i> <%= recipe.get("diet") != null ? recipe.get("diet") : "All Diets"%></span>
                                         </div>
                                         <div class="recipe-tags">
-                                            <% if (recipe.get("diet") != null && !recipe.get("diet").isEmpty()) { %>
-                                            <span class="tag"><%= recipe.get("diet") %></span>
+                                            <% if (recipe.get("diet") != null && !recipe.get("diet").isEmpty()) {%>
+                                            <span class="tag"><%= recipe.get("diet")%></span>
                                             <% } %>
+                                        </div>
+                                        <div class="recipe-buttons mt-3">
+                                            <% if (recipe.get("sourceUrl") != null && !recipe.get("sourceUrl").isEmpty()) {%>
+                                            <a href="<%= recipe.get("sourceUrl")%>" class="primary-btn" target="_blank">View Recipe</a>
+                                            <% }%>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="recipe-content">
                                     <div class="instructions">
                                         <h4><i class="fa-solid fa-list-check"></i> Instructions</h4>
-                                        <p><%= recipe.get("instructions") %></p>
+                                        <p><%= recipe.get("instructions")%></p>
                                     </div>
                                 </div>
                             </div>
@@ -133,13 +138,13 @@
                 </div>
             </div>
             <% }
-            } else if (recipes == null) { 
+            } else if (recipes == null) {
                 logger.info("No recipes found, showing featured recipes section");
             %>
-            </div>
-            <% } %>
         </div>
+        <% }%>
     </div>
+</div>
 </section>
 <!-- Recipes Section End -->
 
@@ -147,22 +152,22 @@
 
 <!-- Initialize Bootstrap Modal -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all modals
-    var modals = document.querySelectorAll('.modal');
-    modals.forEach(function(modal) {
-        new bootstrap.Modal(modal);
-    });
+    document.addEventListener('DOMContentLoaded', function () {
+        // Initialize all modals
+        var modals = document.querySelectorAll('.modal');
+        modals.forEach(function (modal) {
+            new bootstrap.Modal(modal);
+        });
 
-    // Add click event listeners to all "View Recipe" buttons
-    var viewButtons = document.querySelectorAll('[data-bs-toggle="modal"]');
-    viewButtons.forEach(function(button) {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            var targetModal = document.querySelector(this.getAttribute('data-bs-target'));
-            var modal = new bootstrap.Modal(targetModal);
-            modal.show();
+        // Add click event listeners to all "View Recipe" buttons
+        var viewButtons = document.querySelectorAll('[data-bs-toggle="modal"]');
+        viewButtons.forEach(function (button) {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                var targetModal = document.querySelector(this.getAttribute('data-bs-target'));
+                var modal = new bootstrap.Modal(targetModal);
+                modal.show();
+            });
         });
     });
-});
-</script> 
+</script>
