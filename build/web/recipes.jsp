@@ -27,13 +27,16 @@
         <div class="row mb-5">
             <div class="col-lg-12">
                 <div class="search-form-container">
+                    <div class="search-title"><i class="fa-solid fa-utensils"></i> Find recipes by name or filter by diet</div>
                     <form action="RecipeSearchServlet" method="post" class="recipe-search-form">
                         <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" name="recipe" class="form-control" placeholder="Enter Healthy Food Recipe" required>
+                            <div class="col-md-6 position-relative">
+                                <span class="search-input-icon"><i class="fa fa-search"></i></span>
+                                <input type="text" name="recipe" class="form-control with-icon" placeholder="e.g. Chicken Caesar Salad, Vegan Pasta, High Protein Breakfast..." required style="padding-left: 44px;">
                             </div>
-                            <div class="col-md-4">
-                                <select name="diet" class="form-control">
+                            <div class="col-md-4 position-relative">
+                                <span class="search-input-icon" style="left: 18px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #f36100; font-size: 1.1rem;"><i class="fa-solid fa-filter"></i></span>
+                                <select name="diet" class="form-control with-icon" style="padding-left: 44px;">
                                     <option value="">-- Select Diet (Optional) --</option>
                                     <option value="vegetarian">Vegetarian</option>
                                     <option value="vegan">Vegan</option>
@@ -44,7 +47,7 @@
                             </div>
                             <div class="col-md-2">
                                 <button type="submit" class="primary-btn w-100">
-                                    <i class="fa-solid fa-search"></i> Search
+                                    <i class="fa-solid fa-magnifying-glass"></i> Search
                                 </button>
                             </div>
                         </div>

@@ -99,6 +99,7 @@ public class RecipeSearchServlet extends HttpServlet {
                 recipe.put("instructions", meal.has("summary")
                         ? meal.getString("summary").replaceAll("<.*?>", "")
                         : "No instructions provided.");
+                recipe.put("id", String.valueOf(meal.getInt("id")));
                 recipes.add(recipe);
             }
 
