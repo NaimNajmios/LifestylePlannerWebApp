@@ -102,7 +102,7 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title"><%= recipe.get("name") %></h5>
+                            <h5 class="modal-title"><i class="fa-solid fa-bowl-food"></i> <%= recipe.get("name") %></h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -111,7 +111,8 @@
                                     <img src="<%= recipe.get("image") %>" alt="<%= recipe.get("name") %>" class="recipe-image">
                                     <div class="recipe-info">
                                         <div class="recipe-meta">
-                                            <span><i class="fa-solid fa-utensils"></i> Diet: <%= recipe.get("diet") != null ? recipe.get("diet") : "All Diets" %></span>
+                                            <span><i class="fa-regular fa-clock"></i> Recipe</span>
+                                            <span><i class="fa-solid fa-utensils"></i> <%= recipe.get("diet") != null ? recipe.get("diet") : "All Diets" %></span>
                                         </div>
                                         <div class="recipe-tags">
                                             <% if (recipe.get("diet") != null && !recipe.get("diet").isEmpty()) { %>
@@ -122,7 +123,7 @@
                                 </div>
                                 <div class="recipe-content">
                                     <div class="instructions">
-                                        <h4>Instructions</h4>
+                                        <h4><i class="fa-solid fa-list-check"></i> Instructions</h4>
                                         <p><%= recipe.get("instructions") %></p>
                                     </div>
                                 </div>
@@ -142,4 +143,26 @@
 </section>
 <!-- Recipes Section End -->
 
-<jsp:include page="footer.jsp" /> 
+<jsp:include page="footer.jsp" />
+
+<!-- Initialize Bootstrap Modal -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all modals
+    var modals = document.querySelectorAll('.modal');
+    modals.forEach(function(modal) {
+        new bootstrap.Modal(modal);
+    });
+
+    // Add click event listeners to all "View Recipe" buttons
+    var viewButtons = document.querySelectorAll('[data-bs-toggle="modal"]');
+    viewButtons.forEach(function(button) {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            var targetModal = document.querySelector(this.getAttribute('data-bs-target'));
+            var modal = new bootstrap.Modal(targetModal);
+            modal.show();
+        });
+    });
+});
+</script> 
