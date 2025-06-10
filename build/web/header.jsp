@@ -51,13 +51,14 @@
                                     String recipesClass = currentPage.endsWith("recipes.jsp") ? "active" : "";
                                     String caloriesClass = currentPage.endsWith("calories-tracker.jsp") ? "active" : "";
                                     String exerciseClass = currentPage.endsWith("exercise.jsp") ? "active" : "";
+                                    String netCaloriesClass = currentPage.endsWith("net-calories.jsp") ? "active" : "";
                                 %>
                                 <li><a class="<%= homeClass %>" href="./index.jsp"><i class="fa-solid fa-house"></i> Home</a></li>
                                 <li><a class="<%= articlesClass %>" href="./articles.jsp"><i class="fa-solid fa-newspaper"></i> Articles</a></li>
                                 <li><a class="<%= recipesClass %>" href="./recipes.jsp"><i class="fa-solid fa-utensils"></i> Recipes</a></li>
                                 <li><a class="<%= caloriesClass %>" href="./calories-tracker.jsp"><i class="fa-solid fa-chart-line"></i> Calories Tracker</a></li>
                                 <li><a class="<%= exerciseClass %>" href="./exercise.jsp"><i class="fa-solid fa-dumbbell"></i> Exercise</a></li>
-                                <li class="phone-num"><i class="fa fa-phone"></i><span>+546 990221 123</span></li>
+                                <li><a class="<%= netCaloriesClass %>" href="./net-calories.jsp"><i class="fa-solid fa-calculator"></i> Net Calories</a></li>
                             </ul>
                         </nav>
                         <div id="mobile-menu-wrap"></div>
