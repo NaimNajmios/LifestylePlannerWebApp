@@ -256,33 +256,47 @@
 <!-- Main Content Section End -->
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Find the summary table body
-    var table = document.getElementById("summaryBody");
-    if (!table) return;
+    document.addEventListener("DOMContentLoaded", function() {
+        // Set today's date as default for the summary date input
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+        const day = String(today.getDate()).padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`;
 
-    let totalCalories = 0, totalProtein = 0, totalCarbs = 0, totalFat = 0;
+        const summaryDateInput = document.getElementById('summaryDate');
+        if (summaryDateInput) {
+            summaryDateInput.value = formattedDate;
+        }
 
-    // Loop through each row in the table
-    for (let row of table.rows) {
-        // Adjust the cell indices if your table structure changes
-        let cal = parseFloat(row.querySelector('.calories')?.textContent.replace(/[^\d.]/g, '') || 0);
-        let protein = parseFloat(row.querySelector('.protein')?.textContent.replace(/[^\d.]/g, '') || 0);
-        let carbs = parseFloat(row.querySelector('.carbs')?.textContent.replace(/[^\d.]/g, '') || 0);
-        let fat = parseFloat(row.querySelector('.fat')?.textContent.replace(/[^\d.]/g, '') || 0);
+        // Function to calculate totals (existing logic from calories-tracker.jsp)
+        function calculateTotals() {
+            var table = document.getElementById("summaryBody");
+            if (!table) return;
 
-        totalCalories += cal;
-        totalProtein += protein;
-        totalCarbs += carbs;
-        totalFat += fat;
-    }
+            let totalCalories = 0, totalProtein = 0, totalCarbs = 0, totalFat = 0;
 
-    // Update the totals in the DOM
-    document.getElementById("totalCalories").textContent = totalCalories.toFixed(1);
-    document.getElementById("totalProtein").textContent = totalProtein.toFixed(1);
-    document.getElementById("totalCarbs").textContent = totalCarbs.toFixed(1);
-    document.getElementById("totalFat").textContent = totalFat.toFixed(1);
-});
+            for (let row of table.rows) {
+                let cal = parseFloat(row.querySelector('.calories')?.textContent.replace(/[^\d.]/g, '') || 0);
+                let protein = parseFloat(row.querySelector('.protein')?.textContent.replace(/[^\d.]/g, '') || 0);
+                let carbs = parseFloat(row.querySelector('.carbs')?.textContent.replace(/[^\d.]/g, '') || 0);
+                let fat = parseFloat(row.querySelector('.fat')?.textContent.replace(/[^\d.]/g, '') || 0);
+
+                totalCalories += cal;
+                totalProtein += protein;
+                totalCarbs += carbs;
+                totalFat += fat;
+            }
+
+            document.getElementById("totalCalories").textContent = totalCalories.toFixed(1);
+            document.getElementById("totalProtein").textContent = totalProtein.toFixed(1);
+            document.getElementById("totalCarbs").textContent = totalCarbs.toFixed(1);
+            document.getElementById("totalFat").textContent = totalFat.toFixed(1);
+        }
+
+        // Initial calculation on page load for calories-tracker
+        calculateTotals();
+    });
 </script>
 
 <jsp:include page="footer.jsp" />

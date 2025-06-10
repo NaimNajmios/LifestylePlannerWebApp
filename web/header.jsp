@@ -37,7 +37,8 @@
                 <div class="row">
                     <div class="col-lg-2 col-md-2">
                         <div class="logo">
-                            <!-- <a href="./index.jsp"><img src="img/logo.png" alt=""></a> -->
+                            <!-- Logo link to home page -->
+                            <!-- <a href="./index.jsp"><img src="img/logo.png" alt="Lifestyle Planner Logo" class="logo-img"></a> -->
                         </div>
                     </div>
                     <div class="col-lg-10 col-md-10">
@@ -51,11 +52,11 @@
                                     String caloriesClass = currentPage.endsWith("calories-tracker.jsp") ? "active" : "";
                                     String exerciseClass = currentPage.endsWith("exercise.jsp") ? "active" : "";
                                 %>
-                                <li><a class="<%= homeClass %>" href="./index.jsp">Home</a></li>
-                                <li><a class="<%= articlesClass %>" href="./articles.jsp">Articles</a></li>
-                                <li><a class="<%= recipesClass %>" href="./recipes.jsp">Recipes</a></li>
-                                <li><a class="<%= caloriesClass %>" href="./calories-tracker.jsp">Calories Tracker</a></li>
-                                <li><a class="<%= exerciseClass %>" href="./exercise.jsp">Exercise</a></li>
+                                <li><a class="<%= homeClass %>" href="./index.jsp"><i class="fa-solid fa-house"></i> Home</a></li>
+                                <li><a class="<%= articlesClass %>" href="./articles.jsp"><i class="fa-solid fa-newspaper"></i> Articles</a></li>
+                                <li><a class="<%= recipesClass %>" href="./recipes.jsp"><i class="fa-solid fa-utensils"></i> Recipes</a></li>
+                                <li><a class="<%= caloriesClass %>" href="./calories-tracker.jsp"><i class="fa-solid fa-chart-line"></i> Calories Tracker</a></li>
+                                <li><a class="<%= exerciseClass %>" href="./exercise.jsp"><i class="fa-solid fa-dumbbell"></i> Exercise</a></li>
                                 <li class="phone-num"><i class="fa fa-phone"></i><span>+546 990221 123</span></li>
                             </ul>
                         </nav>

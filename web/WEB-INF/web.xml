@@ -16,6 +16,10 @@
         <servlet-name>RecipeSearchServlet</servlet-name>
         <servlet-class>RecipeSearchServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ExerciseData</servlet-name>
+        <servlet-class>ExerciseData</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>NutritionSummary</servlet-name>
         <url-pattern>/NutritionSummary</url-pattern>
@@ -27,6 +31,10 @@
     <servlet-mapping>
         <servlet-name>RecipeSearchServlet</servlet-name>
         <url-pattern>/RecipeSearchServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExerciseData</servlet-name>
+        <url-pattern>/ExerciseData</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

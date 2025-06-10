@@ -120,9 +120,9 @@
                                             <% } %>
                                         </div>
                                         <div class="recipe-buttons mt-3">
-                                            <% if (recipe.get("sourceUrl") != null && !recipe.get("sourceUrl").isEmpty()) {%>
+                                        <% if (recipe.get("sourceUrl") != null && !recipe.get("sourceUrl").isEmpty()) {%>
                                             <a href="<%= recipe.get("sourceUrl")%>" class="primary-btn" target="_blank">View Recipe</a>
-                                            <% }%>
+                                        <% }%>
                                         </div>
                                     </div>
                                 </div>
