@@ -1,9 +1,7 @@
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.crypto.Data;
 
 import Database.DatabaseConnection;
 import Database.DatabaseAccessObject;
@@ -79,7 +77,7 @@ public class NutritionServlet extends HttpServlet {
             System.out.println("Intake inserted successfully.");
             // Set result attribute and forward to JSP
             request.setAttribute("intake", intake);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            request.getRequestDispatcher("calories-tracker.jsp").forward(request, response);
         } else {
             System.out.println("Failed to insert intake.");
             // Handle the error case appropriately

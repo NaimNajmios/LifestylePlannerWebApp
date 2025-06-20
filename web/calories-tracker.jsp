@@ -146,7 +146,8 @@
                                 <form action="NutritionSummary" method="post" id="summaryForm">
                                     <div class="form-group">
                                         <label for="summaryDate"><i class="fa-regular fa-calendar"></i> Select Date:</label>
-                                        <input type="date" class="form-control w-25 d-inline-block" id="summaryDate" name="summaryDate" required>
+                                        <input type="date" class="form-control w-25 d-inline-block" id="summaryDate" name="summaryDate" required
+                                            value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()) %>">
                                         <button type="submit" class="btn btn-primary ml-2">
                                             <i class="fa-solid fa-rotate"></i> Load Summary
                                         </button>

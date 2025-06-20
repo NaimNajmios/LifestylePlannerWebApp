@@ -18,7 +18,7 @@ import Entities.Intake;
  *
  * @author Naim Najmi
  */
-@WebServlet("/NutritionSummary")
+
 public class NutritionSummary extends HttpServlet {
 
     // DAO object to access the database
