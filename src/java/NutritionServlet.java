@@ -77,11 +77,13 @@ public class NutritionServlet extends HttpServlet {
             System.out.println("Intake inserted successfully.");
             // Set result attribute and forward to JSP
             request.setAttribute("intake", intake);
+            request.setAttribute("successMessage", "Food added successfully!");
             request.getRequestDispatcher("calories-tracker.jsp").forward(request, response);
         } else {
             System.out.println("Failed to insert intake.");
-            // Handle the error case appropriately
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to insert intake.");
+            // Set error message and forward to JSP
+            request.setAttribute("errorMessage", "Failed to add food. Please try again.");
+            request.getRequestDispatcher("calories-tracker.jsp").forward(request, response);
         }
 
     }

@@ -44,6 +44,11 @@
                             </div>
 
                             <div class="card-body">
+                                <% if (request.getAttribute("errorMessage") != null) { %>
+                                    <div class="alert alert-danger"><%= request.getAttribute("errorMessage") %></div>
+                                <% } else if (request.getAttribute("successMessage") != null) { %>
+                                    <div class="alert alert-success"><%= request.getAttribute("successMessage") %></div>
+                                <% } %>
                                 <form action="NutritionServlet" method="post">
                                     <div class="form-group">
                                         <label for="mealType"><i class="fa-regular fa-clock"></i> Meal Type:</label>

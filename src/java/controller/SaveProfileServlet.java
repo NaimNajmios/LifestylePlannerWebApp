@@ -15,6 +15,7 @@ public class SaveProfileServlet extends HttpServlet {
         String gender = request.getParameter("gender");
         String weight = request.getParameter("weight");
         String height = request.getParameter("height");
+        String age = request.getParameter("age");
 
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -35,6 +36,10 @@ public class SaveProfileServlet extends HttpServlet {
             Element heightElem = doc.createElement("height");
             heightElem.appendChild(doc.createTextNode(height));
             rootElement.appendChild(heightElem);
+
+            Element ageElem = doc.createElement("age");
+            ageElem.appendChild(doc.createTextNode(age));
+            rootElement.appendChild(ageElem);
 
             // Save XML to file (e.g., in webapp root)
             String filePath = getServletContext().getRealPath("/") + "user_profile.xml";

@@ -4,6 +4,7 @@
     String gender = "";
     String weight = "";
     String height = "";
+    String age = "";
     try {
         String filePath = application.getRealPath("/") + "user_profile.xml";
         File xmlFile = new File(filePath);
@@ -15,6 +16,7 @@
             gender = doc.getElementsByTagName("gender").item(0).getTextContent();
             weight = doc.getElementsByTagName("weight").item(0).getTextContent();
             height = doc.getElementsByTagName("height").item(0).getTextContent();
+            age = doc.getElementsByTagName("age") != null && doc.getElementsByTagName("age").getLength() > 0 ? doc.getElementsByTagName("age").item(0).getTextContent() : "";
         }
     } catch (Exception e) {
         // ignore, just don't display
@@ -44,6 +46,10 @@
                                 <span><i class="fa-solid fa-ruler-vertical"></i> Height</span>
                                 <span class="fw-bold"><%= height %> cm</span>
                             </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <span><i class="fa-solid fa-user"></i> Age</span>
+                                <span class="fw-bold"><%= age %> years</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -69,6 +75,10 @@
                             <div class="form-group mb-4">
                                 <label for="height"><i class="fa-solid fa-ruler-vertical"></i> Height (cm):</label>
                                 <input type="number" name="height" id="height" class="form-control" placeholder="e.g. 175.0" required value="<%= height %>">
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="age"><i class="fa-solid fa-user"></i> Age:</label>
+                                <input type="number" name="age" id="age" class="form-control" placeholder="e.g. 30" required value="<%= age %>">
                             </div>
                             <button type="submit" class="btn btn-primary w-100">
                                 <i class="fa-solid fa-save"></i> Save Profile

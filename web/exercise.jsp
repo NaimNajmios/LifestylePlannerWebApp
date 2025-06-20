@@ -6,6 +6,7 @@
     String gender = "";
     String weight = "";
     String height = "";
+    String age = "";
     try {
         String filePath = application.getRealPath("/") + "user_profile.xml";
         File xmlFile = new File(filePath);
@@ -17,6 +18,7 @@
             gender = doc.getElementsByTagName("gender").item(0).getTextContent();
             weight = doc.getElementsByTagName("weight").item(0).getTextContent();
             height = doc.getElementsByTagName("height").item(0).getTextContent();
+            age = doc.getElementsByTagName("age") != null && doc.getElementsByTagName("age").getLength() > 0 ? doc.getElementsByTagName("age").item(0).getTextContent() : "";
         }
     } catch (Exception e) {
         out.println("<div class='alert alert-danger'>Error reading profile. Please <a href='profile.jsp'>set your profile</a>.</div>");
@@ -63,6 +65,10 @@
                                 <span><i class="fa-solid fa-ruler-vertical"></i> Height</span>
                                 <span class="fw-bold"><%= height %> cm</span>
                             </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <span><i class="fa-solid fa-user"></i> Age</span>
+                                <span class="fw-bold"><%= age %> years</span>
+                            </li>
                         </ul>
                         <a href="profile.jsp" class="btn btn-secondary mt-3 w-100">Edit Profile</a>
                     </div>
@@ -74,6 +80,11 @@
                         <h3 class="mb-0"><i class="fa-solid fa-plus-circle"></i> Track Your Exercise</h3>
                     </div>
                     <div class="card-body">
+                        <% if (request.getAttribute("errorMessage") != null) { %>
+                            <div class="alert alert-danger"><%= request.getAttribute("errorMessage") %></div>
+                        <% } else if (request.getAttribute("successMessage") != null) { %>
+                            <div class="alert alert-success"><%= request.getAttribute("successMessage") %></div>
+                        <% } %>
                         <form action="ExerciseServlet" method="post">
                             <div class="form-group mb-3">
                                 <label for="activityName"><i class="fa-solid fa-person-running"></i> Activity Name:</label>
@@ -86,17 +97,14 @@
                             <input type="hidden" name="gender" value="<%= gender %>" />
                             <input type="hidden" name="weight" value="<%= weight %>" />
                             <input type="hidden" name="height" value="<%= height %>" />
-                            <div class="form-group mb-4">
-                                <label for="age"><i class="fa-solid fa-user"></i> Age:</label>
-                                <input type="number" name="age" id="age" class="form-control" placeholder="e.g. 30" required>
-                            </div>
+                            <input type="hidden" name="age" value="<%= age %>" />
                             <button type="submit" class="btn btn-primary">
                                 <i class="fa-solid fa-right-to-bracket"></i> Submit Exercise
                             </button>
                         </form>
                     </div>
                 </div>
-                <% if (request.getAttribute("exerciseResult") != null) { %>
+                <% if (request.getAttribute("exerciseResult") != null && request.getAttribute("errorMessage") == null) { %>
                 <div class="alert alert-info mt-4">
                     <i class="fa-solid fa-circle-info"></i> API Result: <%= request.getAttribute("exerciseResult")%>
                 </div>
@@ -226,7 +234,7 @@
 
         // Function to calculate totals
         function calculateTotals() {
-            var tableBody = document.querySelector('#log table tbody');
+            var tableBody = document.querySelector('.log-table tbody');
             if (!tableBody) return;
 
             let totalCalories = 0;

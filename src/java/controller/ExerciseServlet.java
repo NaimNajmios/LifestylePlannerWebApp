@@ -75,7 +75,7 @@ public class ExerciseServlet extends HttpServlet {
             ExerciseDAO dao = new ExerciseDAO();
 
             if (exercises.isEmpty()) {
-                resultBuilder.append("We don't have the exercise info for now. Please enter or try a different exercise.");
+                request.setAttribute("errorMessage", "We don't have the exercise info for now. Please enter or try a different exercise.");
             } else {
                 for (int i = 0; i < exercises.length(); i++) {
                     JSONObject ex = exercises.getJSONObject(i);
@@ -95,13 +95,13 @@ public class ExerciseServlet extends HttpServlet {
                     dao.saveExercise(exercise);
                     LOGGER.fine("Saved exercise to DB: " + exercise);
                 }
+                request.setAttribute("successMessage", "Exercise(s) added and saved successfully!");
+                request.setAttribute("exerciseResult", resultBuilder.toString());
             }
-
-            request.setAttribute("exerciseResult", resultBuilder.toString());
 
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error during exercise processing", e);
-            request.setAttribute("exerciseResult", "Error occurred: " + e.getMessage());
+            request.setAttribute("errorMessage", "Error occurred: " + e.getMessage());
         }
 
         request.getRequestDispatcher("exercise.jsp?activeTab=input").forward(request, response);

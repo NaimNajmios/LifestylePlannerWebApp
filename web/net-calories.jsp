@@ -104,6 +104,82 @@
                 </div>
             </div>
         </div>
+
+        <%-- Food Intake Table --%>
+        <% List<Entities.Intake> intakeList = (List<Entities.Intake>) request.getAttribute("intakeList"); %>
+        <div class="card mt-4">
+            <div class="card-header bg-success text-white">
+                <h4><i class="fa-solid fa-utensils"></i> Food Intake</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Food</th>
+                            <th>Quantity</th>
+                            <th>Calories</th>
+                            <th>Protein</th>
+                            <th>Carbs</th>
+                            <th>Fat</th>
+                            <th>Meal Type</th>
+                            <th>Remark</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (intakeList != null && !intakeList.isEmpty()) {
+                             for (Entities.Intake intake : intakeList) { %>
+                            <tr>
+                                <td><%= intake.getFoodQuery() %></td>
+                                <td><%= intake.getQuantity() %></td>
+                                <td><%= intake.getCalories() %></td>
+                                <td><%= intake.getProtein() %></td>
+                                <td><%= intake.getCarbs() %></td>
+                                <td><%= intake.getFat() %></td>
+                                <td><%= intake.getMealType() %></td>
+                                <td><%= intake.getRemark() %></td>
+                            </tr>
+                        <%   }
+                           } else { %>
+                            <tr><td colspan="8" class="text-center text-muted">No intake records for this date.</td></tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <%-- Exercise Outtake Table --%>
+        <% List<model.Exercise> exerciseList = (List<model.Exercise>) request.getAttribute("exerciseList"); %>
+        <div class="card mt-4">
+            <div class="card-header bg-danger text-white">
+                <h4><i class="fa-solid fa-dumbbell"></i> Exercise Outtake</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Exercise</th>
+                            <th>Duration (min)</th>
+                            <th>Calories Burned</th>
+                            <th>Date Logged</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (exerciseList != null && !exerciseList.isEmpty()) {
+                             for (model.Exercise ex : exerciseList) { %>
+                            <tr>
+                                <td><%= ex.getName() %></td>
+                                <td><%= ex.getDuration() %></td>
+                                <td><%= ex.getCalories() %></td>
+                                <td><%= ex.getDate() %></td>
+                            </tr>
+                        <%   }
+                           } else { %>
+                            <tr><td colspan="4" class="text-center text-muted">No exercise records for this date.</td></tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </section>
 <!-- Main Content Section End -->
