@@ -70,6 +70,7 @@
             </form>
         </div>
 
+        <div id="articles-container">
         <div class="row">
             <% for (JSONObject article : articleList) {
                     String title = article.getString("title");
@@ -80,18 +81,20 @@
             %>
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="single-classes-item">
-                    <img src="<%= imageUrl%>" alt="<%= title%>" class="article-image">
+                    <a href="<%= urlLink%>" target="_blank">
+                        <img src="<%= imageUrl%>" alt="<%= title%>" class="article-image" style="cursor:pointer;">
+                    </a>
                     <div class="classes-text">
-                        <h4><i class="fa-solid fa-newspaper"></i> <%= title%></h4>
-                        <p><%= description%></p>
+                        <h4><i class="fa-solid fa-newspaper"></i> <a href="<%= urlLink%>" target="_blank" style="color:inherit; text-decoration:none; cursor:pointer;"> <%= title%></a></h4>
+                        <p class="article-desc"><%= description%></p>
                         <div class="article-meta">
                             <span><i class="fa-regular fa-calendar"></i> <%= publishedAt.substring(0, 10)%></span>
                         </div>
-                        <a href="<%= urlLink%>" target="_blank" class="primary-btn">Read More</a>
                     </div>
                 </div>
             </div>
             <% } %>
+        </div>
         </div>
 
         <%
@@ -104,5 +107,34 @@
     </div>
 </section>
 <!-- Articles Section End -->
+
+<style>
+/* Multiline truncation for article description */
+.article-desc {
+    color: #666;
+    margin-bottom: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+.single-classes-item:hover .article-desc {
+    -webkit-line-clamp: unset;
+    max-height: 500px;
+    white-space: normal;
+    overflow: visible;
+    background: #fff;
+    z-index: 2;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+</style>
+
+<script>
+// Removed AJAX search JavaScript
+</script>
 
 <jsp:include page="footer.jsp" />

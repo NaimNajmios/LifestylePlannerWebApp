@@ -24,6 +24,10 @@
         <servlet-name>SaveProfileServlet</servlet-name>
         <servlet-class>controller.SaveProfileServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NetCaloriesServlet</servlet-name>
+        <servlet-class>NetCaloriesServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RecipeSearchServlet</servlet-name>
         <url-pattern>/RecipeSearchServlet</url-pattern>
@@ -43,6 +47,10 @@
     <servlet-mapping>
         <servlet-name>SaveProfileServlet</servlet-name>
         <url-pattern>/SaveProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NetCaloriesServlet</servlet-name>
+        <url-pattern>/NetCaloriesServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

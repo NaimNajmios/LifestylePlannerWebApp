@@ -9,11 +9,9 @@
                             Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
                         </div>
                         <div class="social-links">
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-dribbble"></i></a>
-                            <a href="#"><i class="fa fa-behance"></i></a>
+                            <a href="#"><i class="fa-brands fa-pinterest"></i></a>
+                            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
                         </div>
                     </div>
                 </div>
