@@ -229,4 +229,84 @@
     .stat-card {
         margin-bottom: 30px;
     }
+}
+
+.quickstart-cards {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+
+.quickstart-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 32px 28px 28px 28px;
+    text-align: center;
+    min-width: 220px;
+    max-width: 260px;
+    flex: 1 1 220px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    color: #222;
+    text-decoration: none;
+    position: relative;
+}
+
+.quickstart-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 8px 32px rgba(243,97,0,0.13);
+    color: #f36100;
+}
+
+.quickstart-icon {
+    font-size: 2.7rem;
+    color: #f36100;
+    margin-bottom: 18px;
+    transition: color 0.2s;
+}
+
+.quickstart-card:hover .quickstart-icon {
+    color: #82D026;
+}
+
+.quickstart-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #222;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.quickstart-desc {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+    .quickstart-cards {
+        gap: 20px;
+    }
+    .quickstart-card {
+        min-width: 180px;
+        max-width: 220px;
+        padding: 24px 12px 20px 12px;
+    }
+}
+
+@media (max-width: 600px) {
+    .quickstart-cards {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+    .quickstart-card {
+        width: 90%;
+        min-width: unset;
+        max-width: 350px;
+    }
 } 

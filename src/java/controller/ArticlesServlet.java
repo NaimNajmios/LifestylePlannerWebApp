@@ -17,7 +17,8 @@ import org.json.JSONObject;
 @WebServlet("/articles")
 public class ArticlesServlet extends HttpServlet {
     private static final String API_KEY = "4817e6901386184b09de09c2ab51e459";
-    private static final String API_URL = "https://gnews.io/api/v4/search?q=nutrition&lang=en&max=12&token=" + API_KEY;
+    // Multiple keywords related to healthy lifestyle
+    private static final String KEYWORDS = "nutrition OR fitness OR wellness OR exercise OR health OR diet OR mindfulness OR workout OR healthy eating OR wellbeing";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, javax.servlet.ServletException {
@@ -27,8 +28,15 @@ public class ArticlesServlet extends HttpServlet {
             sortOrder = "desc";
         }
 
+        String apiUrl;
         try {
-            URL url = new URL(API_URL);
+            apiUrl = "https://gnews.io/api/v4/search?q=" + java.net.URLEncoder.encode(KEYWORDS, "UTF-8") + "&lang=en&max=12&token=" + API_KEY;
+        } catch (java.io.UnsupportedEncodingException e) {
+            apiUrl = "https://gnews.io/api/v4/search?q=nutrition&lang=en&max=12&token=" + API_KEY;
+        }
+
+        try {
+            URL url = new URL(apiUrl);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
 

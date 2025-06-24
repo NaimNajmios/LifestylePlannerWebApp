@@ -6,20 +6,55 @@
 
 <!-- Main Content Section Begin -->
 <section class="main-content">
-    <!-- CTA Section Begin -->
-    <section class="cta-section">
+    <!-- Quick Start Section Begin -->
+    <section class="quickstart-section spad">
         <div class="container">
-            <div class="cta-content">
-                <h1>Transform Your Lifestyle</h1>
-                <p>Your all-in-one platform for healthy living, featuring meal planning, exercise tracking, and nutrition guidance.</p>
-                <div class="cta-buttons">
-                    <a href="recipes.jsp" class="cta-button primary">Get Started</a>
-                    <a href="articles.jsp" class="cta-button secondary">Learn More</a>
+            <div class="row mb-4">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-title">Quick Start</h2>
+                    <p class="lead">Jump right in to the most popular features of Lifestyle Planner</p>
+                </div>
+            </div>
+            <div class="quickstart-cards">
+                <a href="recipes.jsp" class="quickstart-card">
+                    <div class="quickstart-icon"><i class="fa-solid fa-utensils"></i></div>
+                    <div class="quickstart-title">Recipes</div>
+                    <div class="quickstart-desc">Find healthy recipes for every lifestyle.</div>
+                </a>
+                <a href="/articles" class="quickstart-card">
+                    <div class="quickstart-icon"><i class="fa-solid fa-newspaper"></i></div>
+                    <div class="quickstart-title">Articles</div>
+                    <div class="quickstart-desc">Read the latest in health and wellness.</div>
+                </a>
+                <a href="calories-tracker.jsp" class="quickstart-card">
+                    <div class="quickstart-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <div class="quickstart-title">Calories</div>
+                    <div class="quickstart-desc">Track your daily nutrition intake.</div>
+                </a>
+                <a href="exercise.jsp" class="quickstart-card">
+                    <div class="quickstart-icon"><i class="fa-solid fa-dumbbell"></i></div>
+                    <div class="quickstart-title">Exercise</div>
+                    <div class="quickstart-desc">Access personalized workout plans.</div>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Quick Start Section End -->
+
+    <!-- Motivational Quote/Testimonial Section Begin -->
+    <section class="testimonial-section py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <blockquote class="blockquote">
+                        <p class="mb-4">“The journey of a thousand miles begins with a single step. Start your healthy lifestyle today!”</p>
+                        <footer class="blockquote-footer">Lao Tzu</footer>
+                    </blockquote>
                 </div>
             </div>
         </div>
     </section>
-    <!-- CTA Section End -->
+    <!-- Motivational Quote/Testimonial Section End -->
 
     <!-- Features Section Begin -->
     <section class="features-section spad">
