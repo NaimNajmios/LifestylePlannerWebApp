@@ -1,5 +1,6 @@
-<%@ page import="java.net.*, java.io.*, org.json.*, java.util.*" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="header.jsp" />
 
 <!-- Articles Section Begin -->
@@ -13,97 +14,56 @@
             </div>
         </div>
 
-        <%
-            String apiKey = "4817e6901386184b09de09c2ab51e459";
-            String apiUrl = "https://gnews.io/api/v4/search?q=nutrition&lang=en&max=12&token=" + apiKey;
-            StringBuilder apiResponse = new StringBuilder();
-
-            // Get sortOrder parameter, default to "desc"
-            String sortOrder = request.getParameter("sortOrder");
-            if (sortOrder == null || (!sortOrder.equals("asc") && !sortOrder.equals("desc"))) {
-                sortOrder = "desc";
-            }
-            final String sort = sortOrder;
-
-            try {
-                URL url = new URL(apiUrl);
-                HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                con.setRequestMethod("GET");
-
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String inputLine;
-                while ((inputLine = in.readLine()) != null) {
-                    apiResponse.append(inputLine);
-                }
-                in.close();
-
-                JSONObject json = new JSONObject(apiResponse.toString());
-                JSONArray articles = json.getJSONArray("articles");
-
-                // Convert JSONArray to List<JSONObject> for sorting
-                List<JSONObject> articleList = new ArrayList<>();
-                for (int i = 0; i < articles.length(); i++) {
-                    articleList.add(articles.getJSONObject(i));
-                }
-
-                // Sort articles by publishedAt date
-                articleList.sort(new Comparator<JSONObject>() {
-                    public int compare(JSONObject a, JSONObject b) {
-                        String dateA = a.optString("publishedAt", "");
-                        String dateB = b.optString("publishedAt", "");
-                        if ("asc".equals(sort)) {
-                            return dateA.compareTo(dateB);  // oldest first
-                        } else {
-                            return dateB.compareTo(dateA);  // latest first
-                        }
-                    }
-                });
-        %>
+        <div class="search-bar text-center mb-4">
+            <input type="text" id="search-input" class="form-control" placeholder="Search articles..." style="display:inline-block; width:300px; margin-right:10px;">
+        </div>
 
         <div class="sort-btn text-center mb-4">
-            <form method="get" action="">
-                <input type="hidden" name="sortOrder" value="<%= "asc".equals(sort) ? "desc" : "asc"%>">
-                <button type="submit" class="primary-btn">
-                    <i class="fa-solid fa-arrow-<%= "asc".equals(sort) ? "up" : "down"%>"></i>
-                    Sort by Date <%= "asc".equals(sort) ? "(Oldest First)" : "(Latest First)"%>
-                </button>
-            </form>
+            <button id="sort-btn" class="primary-btn">
+                <i id="sort-icon" class="fa-solid fa-arrow-down"></i>
+                Sort by Date (Latest First)
+            </button>
         </div>
+
+        <c:if test="${not empty error}">
+            <div class="alert alert-danger mt-4">
+                <i class="fa-solid fa-triangle-exclamation"></i> ${error}
+            </div>
+        </c:if>
 
         <div id="articles-container">
-        <div class="row">
-            <% for (JSONObject article : articleList) {
-                    String title = article.getString("title");
-                    String description = article.optString("description", "No description available.");
-                    String urlLink = article.getString("url");
-                    String imageUrl = article.optString("image", "https://via.placeholder.com/300x180?text=No+Image");
-                    String publishedAt = article.getString("publishedAt");
-            %>
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="single-classes-item">
-                    <a href="<%= urlLink%>" target="_blank">
-                        <img src="<%= imageUrl%>" alt="<%= title%>" class="article-image" style="cursor:pointer;">
-                    </a>
-                    <div class="classes-text">
-                        <h4><i class="fa-solid fa-newspaper"></i> <a href="<%= urlLink%>" target="_blank" style="color:inherit; text-decoration:none; cursor:pointer;"> <%= title%></a></h4>
-                        <p class="article-desc"><%= description%></p>
-                        <div class="article-meta">
-                            <span><i class="fa-regular fa-calendar"></i> <%= publishedAt.substring(0, 10)%></span>
+            <div class="row" id="articles-row">
+                <c:forEach var="article" items="${articles}">
+                    <div class="col-lg-4 col-md-6 mb-4 article-item" data-date="${article.publishedAt}">
+                        <div class="single-classes-item">
+                            <a href="${article.url}" target="_blank">
+                                <img src="${article.image != null ? article.image : 'https://via.placeholder.com/300x180?text=No+Image'}" alt="${article.title}" class="article-image" style="cursor:pointer;">
+                            </a>
+                            <div class="classes-text">
+                                <h4><i class="fa-solid fa-newspaper"></i>
+                                    <a href="${article.url}" target="_blank" style="color:inherit; text-decoration:none; cursor:pointer;">${article.title}</a>
+                                </h4>
+                                <p class="article-desc">
+                                    <c:choose>
+                                        <c:when test="${not empty article.description}">
+                                            ${article.description}
+                                        </c:when>
+                                        <c:otherwise>
+                                            No description available.
+                                        </c:otherwise>
+                                    </c:choose>
+                                </p>
+                                <div class="article-meta">
+                                    <span><i class="fa-regular fa-calendar"></i>
+                                        <c:out value="${fn:substring(article.publishedAt, 0, 10)}"/>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </c:forEach>
             </div>
-            <% } %>
         </div>
-        </div>
-
-        <%
-        } catch (Exception e) {
-        %>
-        <div class="alert alert-danger mt-4">
-            <i class="fa-solid fa-triangle-exclamation"></i> Error fetching articles: <%= e.getMessage()%>
-        </div>
-        <% }%>
     </div>
 </section>
 <!-- Articles Section End -->
@@ -134,7 +94,56 @@
 </style>
 
 <script>
-// Removed AJAX search JavaScript
+let sortOrder = 'desc';
+const sortBtn = document.getElementById('sort-btn');
+const sortIcon = document.getElementById('sort-icon');
+const articlesRow = document.getElementById('articles-row');
+const searchInput = document.getElementById('search-input');
+
+sortBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    const items = Array.from(articlesRow.getElementsByClassName('article-item'));
+    items.sort((a, b) => {
+        const dateA = a.getAttribute('data-date');
+        const dateB = b.getAttribute('data-date');
+        if (sortOrder === 'asc') {
+            return dateA.localeCompare(dateB);
+        } else {
+            return dateB.localeCompare(dateA);
+        }
+    });
+    // Remove all items
+    while (articlesRow.firstChild) {
+        articlesRow.removeChild(articlesRow.firstChild);
+    }
+    // Append sorted items
+    items.forEach(item => articlesRow.appendChild(item));
+    // Toggle sort order and icon
+    if (sortOrder === 'desc') {
+        sortOrder = 'asc';
+        sortIcon.className = 'fa-solid fa-arrow-up';
+        sortBtn.innerHTML = '<i id="sort-icon" class="fa-solid fa-arrow-up"></i> Sort by Date (Oldest First)';
+    } else {
+        sortOrder = 'desc';
+        sortIcon.className = 'fa-solid fa-arrow-down';
+        sortBtn.innerHTML = '<i id="sort-icon" class="fa-solid fa-arrow-down"></i> Sort by Date (Latest First)';
+    }
+});
+
+// Real-time search filter
+searchInput.addEventListener('input', function() {
+    const query = searchInput.value.toLowerCase();
+    const items = articlesRow.getElementsByClassName('article-item');
+    Array.from(items).forEach(item => {
+        const title = item.querySelector('.classes-text h4 a').textContent.toLowerCase();
+        const desc = item.querySelector('.article-desc').textContent.toLowerCase();
+        if (title.includes(query) || desc.includes(query)) {
+            item.style.display = '';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+});
 </script>
 
 <jsp:include page="footer.jsp" />

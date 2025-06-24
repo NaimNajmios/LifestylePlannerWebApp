@@ -54,7 +54,7 @@
                                     String netCaloriesClass = currentPage.endsWith("net-calories.jsp") ? "active" : "";
                                 %>
                                 <li><a class="<%= homeClass %>" href="./index.jsp"><i class="fa-solid fa-house"></i> Home</a></li>
-                                <li><a class="<%= articlesClass %>" href="./articles.jsp"><i class="fa-solid fa-newspaper"></i> Articles</a></li>
+                                <li><a class="<%= articlesClass %>" href="./articles"><i class="fa-solid fa-newspaper"></i> Articles</a></li>
                                 <li><a class="<%= recipesClass %>" href="./recipes.jsp"><i class="fa-solid fa-utensils"></i> Recipes</a></li>
                                 <li><a class="<%= caloriesClass %>" href="./calories-tracker.jsp"><i class="fa-solid fa-chart-line"></i> Calories Tracker</a></li>
                                 <li><a class="<%= exerciseClass %>" href="./exercise.jsp"><i class="fa-solid fa-dumbbell"></i> Exercise</a></li>
