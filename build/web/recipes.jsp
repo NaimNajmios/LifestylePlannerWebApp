@@ -79,20 +79,19 @@
             %>
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="single-classes-item">
-                    <img src="<%= recipe.get("image")%>" alt="<%= recipe.get("name")%>" class="article-image">
+                    <img src="<%= recipe.get("image")%>" alt="<%= recipe.get("name")%>" class="article-image" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#recipeModal<%= recipe.get("name").hashCode()%>">
                     <div class="classes-text">
                         <div class="recipe-meta">
                             <span><i class="fa-regular fa-clock"></i> Recipe</span>
                             <span><i class="fa-solid fa-utensils"></i> <%= recipe.get("diet") != null ? recipe.get("diet") : "All Diets"%></span>
                         </div>
-                        <h4><i class="fa-solid fa-bowl-food"></i> <%= recipe.get("name")%></h4>
+                        <h4 style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#recipeModal<%= recipe.get("name").hashCode()%>"><i class="fa-solid fa-bowl-food"></i> <%= recipe.get("name")%></h4>
                         <p><%= recipe.get("instructions").length() > 150 ? recipe.get("instructions").substring(0, 150) + "..." : recipe.get("instructions")%></p>
                         <div class="recipe-tags">
                             <% if (recipe.get("diet") != null && !recipe.get("diet").isEmpty()) {%>
                             <span class="tag"><%= recipe.get("diet")%></span>
                             <% }%>
                         </div>
-                        <a href="#" class="primary-btn" data-bs-toggle="modal" data-bs-target="#recipeModal<%= recipe.get("name").hashCode()%>">Information</a>
                     </div>
                 </div>
             </div>
